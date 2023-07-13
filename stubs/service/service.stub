@@ -1,0 +1,50 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Services\Service;
+use DummyRootNamespaceRepositories\DummyModuleRepositoryEloquent as DummyEntityRepository;
+
+class DummyClass extends Service
+{
+    /**
+     * @var DummyEntityRepository
+     */
+    protected $repository;
+
+	public function __construct(DummyEntityRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function find(array $params)
+    {
+        $list = $this->repository->findModels($params);
+        return $list;
+    }
+
+    public function get($id)
+    {
+        return $this->repository->findOrFail($id);
+    }
+
+    public function getBy($field, $value)
+    {
+        return $this->repository->findByField($field, $value)->first();
+    }
+
+    public function create(array $params)
+    {
+        return $this->repository->create($params);
+    }
+
+    public function update(array $params, $id)
+    {
+        return $this->repository->update($params, $id);
+    }
+
+    public function delete($id)
+    {
+        return $this->repository->delete($id);
+    }
+}

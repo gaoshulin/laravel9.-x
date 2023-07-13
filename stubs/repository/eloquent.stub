@@ -1,0 +1,50 @@
+<?php
+
+$NAMESPACE$
+
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Illuminate\Support\Facades\DB;
+use $REPOSITORY$
+use $MODEL$;
+$USE_VALIDATOR$
+
+/**
+ * Class $CLASS$RepositoryEloquent.
+ *
+ * @package $NAMESPACE$
+ */
+class $CLASS$RepositoryEloquent extends BaseRepository implements $CLASS$Repository
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return $CLASS$::class;
+    }
+
+    $VALIDATOR$
+
+    /**
+     * Find all results by params
+     * @param  array      $params query params
+     * @return mixed
+     */
+    public function findModels(array $params)
+    {
+        // your query
+        
+        return $this->paginate($params['per_page'] ?? null);
+    }
+
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+}

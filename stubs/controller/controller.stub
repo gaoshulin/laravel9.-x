@@ -1,0 +1,109 @@
+<?php
+
+$NAMESPACE$
+
+use Exception;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Controller;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
+use App\Services\$MODULE$\$CLASS$Service;
+use $APPNAME$Http\Resources\Api\$MODULE$\$CLASS$Resource;
+$REPOSITORY$
+$VALIDATOR$
+
+/**
+ * Class $CONTROLLER$Controller.
+ *
+ * @package $NAMESPACE$
+ */
+class $CONTROLLER$Controller extends Controller
+{
+    /**
+     * @var $CLASS$Service
+     */
+    protected $service;
+
+    /**
+     * @var $CLASS$Validator
+     */
+    protected $validator;
+
+    /**
+     * $CONTROLLER$Controller constructor.
+     *
+     * @param $CLASS$Repository $repository
+     * @param $CLASS$Validator $validator
+     */
+    public function __construct($CLASS$Service $service, $CLASS$Validator $validator)
+    {
+        $this->service  = $service;
+        $this->validator  = $validator;
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function list(Request $request)
+    {
+        $$PLURAL$ = $this->service->find($request->all());
+        return $this->success($CLASS$Resource::collection($$PLURAL$));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $$SINGULAR$ = $this->service->get($id);
+        return $this->success(new $CLASS$Resource($$SINGULAR$));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        try {
+            $params = $request->all();
+
+            $this->validator->with($params)->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+            $$SINGULAR$ = $this->service->create($params);
+
+            return $this->success($$SINGULAR$);
+        } catch (ValidatorException $e) {
+            return $this->errBadRequest($e->getMessageBag());
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+
+            $$SINGULAR$ = $this->service->update($request->all(), $id);
+            
+            return $this->success($$SINGULAR$);
+        } catch (ValidatorException $e) {
+            return $this->errBadRequest($e->getMessageBag());
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        try {
+            $this->service->delete($id);
+        } catch (Exception $e) {
+            return $this->errInternal($e->getMessage());
+        }
+
+        return $this->success();
+    }
+}
