@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'hello world!';
 
@@ -29,5 +30,10 @@ class IndexController extends Controller
             'bool' => false,
             'data' => $list
         ]);
+    }
+
+    public function show(Request $request, $id)
+    {
+        var_dump($request->all());
     }
 }
