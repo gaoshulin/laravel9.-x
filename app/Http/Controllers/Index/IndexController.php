@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
@@ -34,6 +35,12 @@ class IndexController extends Controller
 
     public function show(Request $request, $id)
     {
-        var_dump($request->all());
+        // 动态 where
+        $user = DB::table('users')
+            ->whereIdOrEmail($id, '1453811292@qq.com')
+            // ->whereNameAndAge('galen', 25)
+            ->first();
+
+        var_dump($user);
     }
 }

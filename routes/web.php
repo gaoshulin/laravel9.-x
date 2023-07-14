@@ -21,6 +21,6 @@ Route::get('/', function () {
 // web 路由
 Route::middleware(['web'])->group(function () {
     Route::get('index/index', [IndexController::class, 'index']);
-    Route::get('index/index/{id}', [IndexController::class, 'show']);
+    Route::get('index/show/{id}', [IndexController::class, 'show']);
 
 });
