@@ -20,7 +20,9 @@
         "wechatpay/wechatpay": "^1.4",
         "workerman/workerman": "^3.5",
         "workerman/gateway-worker": "^3.0",
-        "workerman/gatewayclient": "^3.0"
+        "workerman/gatewayclient": "^3.0",
+        "elasticsearch/elasticsearch": "~6.0",
+        "monolog/monolog": "~1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
