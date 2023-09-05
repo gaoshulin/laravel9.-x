@@ -19,24 +19,15 @@ use Illuminate\Support\Facades\Log;
  */
 class EventsController extends Controller
 {
-    public static function onWorkerStart($businessWorker)
-    {
-        echo "success";
-    }
-
     public static function onConnect($client_id)
     {
         var_dump($client_id);
         Gateway::sendToClient($client_id, json_encode(['type' => 'init', 'client_id' => $client_id]));
     }
 
-    public static function onWebSocketConnect($client_id, $data)
-    {
-    }
-
     public static function onMessage($client_id, $message)
     {
-        $response = ['errcode' => 0, 'msg' => 'ok', 'data' => []];
+        $response = ['code' => 0, 'msg' => 'ok', 'data' => []];
         $message = json_decode($message);
 
         // dump($message);
