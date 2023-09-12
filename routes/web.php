@@ -22,5 +22,9 @@ Route::get('/', function () {
 Route::middleware(['web'])->group(function () {
     Route::get('index/index', [IndexController::class, 'index']);
     Route::get('index/show/{id}', [IndexController::class, 'show']);
+    Route::get('index/create', [IndexController::class, 'create']);
+    Route::get('index/update/{id}', [IndexController::class, 'update']);
+    Route::post('index/store', [IndexController::class, 'store']);
+    Route::get('index/delete/{id}', [IndexController::class, 'delete']);
 
 });
