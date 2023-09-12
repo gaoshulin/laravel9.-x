@@ -11,26 +11,16 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'hello world!';
+        $title = 'indexd/index';
 
-        $list = [
-            [
-                'id' => 1,
-                'name' => 'galen',
-                'date' => '20201010'
-            ],
-            [
-                'id' => 2,
-                'name' => 'a;nn',
-                'date' => '20221111'
-            ]
-        ];
+        $list = Db::table('demo')->select(["id","title","create_time"])->get();
 
-        return view('index/index', [
+        $data = [
             'title' => $title,
-            'bool' => false,
-            'data' => $list
-        ]);
+            'data' => $list,
+             'bool' => false,
+        ];
+        return view('index/index', $data);
     }
 
     public function show(Request $request, $id)
